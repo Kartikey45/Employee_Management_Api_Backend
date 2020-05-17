@@ -1,0 +1,36 @@
+﻿using BusinessLayer.Interface;
+using CommonLayer.Model;
+using RepositoryLayer.Interface;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BusinessLayer.Services
+{
+    //Child class of business layer implementing the interface for managing data of Employees in database table
+    public class EmployeeBL : IEmployeeBL
+    {
+        //Declared variable for accessing repository layer methods 
+        private readonly IEmployeeRL employeeRL;
+
+        //Constructor  
+        public EmployeeBL(IEmployeeRL _employeeRL)
+        {
+            this.employeeRL = _employeeRL;
+        }
+
+        //Method to add employee's records 
+        public EmployeesTableDetails AddEmployeesRecords(EmployeesTableDetails employee)
+        {
+            var result = employeeRL.AddEmployeesRecords(employee);
+            return result;
+        }
+
+        //Method to get employee's records 
+        public List<EmployeesTableDetails> GetEmployeesRecords()
+        {
+            var result = employeeRL.GetEmployeesRecords();
+            return result;
+        }
+    }
+}
