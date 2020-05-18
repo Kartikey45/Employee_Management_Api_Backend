@@ -22,13 +22,21 @@ namespace EmployeeManagementAPIProject.Controllers
         }
 
         //Get all the records of employees from the database 
-        // GET api/employee
         [HttpGet]
         [Route("")]
-        public ActionResult<List<EmployeesTableDetails>> GetEmployeesRecords()
+        public IActionResult GetEmployeesRecords()
         {
             var result = employeeBL.GetEmployeesRecords();
-            return result;
+            return Ok(new {result}) ;
+        }
+
+        //Get records of employee by its id
+        [HttpGet]
+        [Route("{UserId}")]
+        public IActionResult GetEmployeeRecordById(int UserId)
+        {
+            var result = employeeBL.GetEmployeeRecordById(UserId);
+            return Ok(new { result});
         }
 
         //Add an employee's record to the database

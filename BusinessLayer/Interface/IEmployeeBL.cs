@@ -13,5 +13,8 @@ namespace BusinessLayer.Interface
 
         //Method to add an employee's record
         EmployeesTableDetails AddEmployeesRecords(EmployeesTableDetails employees);
+
+        //Method to get empoyee data by its Id
+        EmployeesTableDetails GetEmployeeRecordById(int UserId);
     }
 }

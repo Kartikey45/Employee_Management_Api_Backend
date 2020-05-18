@@ -15,5 +15,8 @@ namespace RepositoryLayer.Interface
 
         //Method to add an Employee's data in the table
         EmployeesTableDetails AddEmployeesRecords(EmployeesTableDetails employees);
+
+        //Method to get empoyee data by its Id
+        EmployeesTableDetails GetEmployeeRecordById(int UserId);
     }
 }

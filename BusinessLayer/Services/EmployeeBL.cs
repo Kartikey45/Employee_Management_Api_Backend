@@ -32,5 +32,12 @@ namespace BusinessLayer.Services
             var result = employeeRL.GetEmployeesRecords();
             return result;
         }
+
+        //Method to get empoyee data by its Id
+        public EmployeesTableDetails GetEmployeeRecordById(int UserId)
+        {
+            var result = employeeRL.GetEmployeeRecordById(UserId);
+            return result;
+        }
     }
 }

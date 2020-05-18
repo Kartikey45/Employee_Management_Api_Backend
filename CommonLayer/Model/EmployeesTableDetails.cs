@@ -29,10 +29,6 @@ namespace CommonLayer.Model
         [EmailAddress]
         public string Email { get; set; }
 
-        //Employee's Mobile number
-        [Required]
-        public long MobileNumber { get; set; }
-
         //Employee's address
         [Required]
         public string Address { get; set; }
@@ -45,12 +41,8 @@ namespace CommonLayer.Model
         [Required]
         public double Salary { get; set; }
 
-        //Employee's User name
+        //Employee's Mobile number
         [Required]
-        public string UserName { get; set; }
-
-        //Employee's password
-        [Required]
-        public string Password { get; set; }
+        public string MobileNumber { get; set; }
     }
 }
