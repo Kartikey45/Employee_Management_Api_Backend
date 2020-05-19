@@ -46,5 +46,12 @@ namespace BusinessLayer.Services
             var result = employeeRL.DeleteEmployeeRecordById(UserId);
             return result;
         }
+
+        //Method to Update record
+        public EmployeesTableDetails UpdateEmployeeRecord(EmployeesTableDetails employees)
+        {
+            var result = employeeRL.UpdateEmployeeRecord(employees);
+            return result;
+        }
     }
 }

@@ -56,5 +56,14 @@ namespace EmployeeManagementAPIProject.Controllers
             var result = employeeBL.DeleteEmployeeRecordById(UserId);
             return Ok(new { result });
         }
+
+        //Update Employee record
+        [HttpPut]
+        [Route("{UserId}")]
+        public IActionResult UpdateEmployeeRecord(EmployeesTableDetails employees)
+        {
+            var result = employeeBL.UpdateEmployeeRecord(employees);
+            return Ok(new { result });
+        }
     }
 }

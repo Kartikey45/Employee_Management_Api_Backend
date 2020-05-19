@@ -145,6 +145,7 @@ namespace RepositoryLayer.Services
             return employee;
         }
 
+        //Method to delete specific employee data by id
         public EmployeesTableDetails DeleteEmployeeRecordById(int UserId)
         {
             string Procedure = "DeleteRecordById";
@@ -167,6 +168,45 @@ namespace RepositoryLayer.Services
                 Console.WriteLine(ex.Message);
             }
             return null;
+        }
+
+        //Method to update employee record
+        public EmployeesTableDetails UpdateEmployeeRecord(EmployeesTableDetails employees)
+        {
+            string Procedure = "UpdateEmployeeRecord";
+
+            try
+            {
+                using (SqlConnection Connection =  new SqlConnection(ConnectionString))
+                {
+                    SqlCommand sqlCommand = new SqlCommand(Procedure,Connection);
+
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@UserId", employees.UserId);
+                    sqlCommand.Parameters.AddWithValue("@FirstName", employees.FirstName);
+                    sqlCommand.Parameters.AddWithValue("@LastName", employees.LastName);
+                    sqlCommand.Parameters.AddWithValue("@Gender", employees.Gender);
+                    sqlCommand.Parameters.AddWithValue("@Email", employees.Email);
+                    sqlCommand.Parameters.AddWithValue("@Address", employees.Address);
+                    sqlCommand.Parameters.AddWithValue("@Designation", employees.Designation);
+                    sqlCommand.Parameters.AddWithValue("@Salary", employees.Salary);
+                    sqlCommand.Parameters.AddWithValue("@MobileNumber", employees.MobileNumber);
+
+                    //connection open 
+                    Connection.Open();
+
+                    //Execute query
+                    sqlCommand.ExecuteNonQuery();
+
+                    //connection close
+                    Connection.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return employees;
         }
     }
 }

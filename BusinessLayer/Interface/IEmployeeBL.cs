@@ -19,5 +19,8 @@ namespace BusinessLayer.Interface
 
         //Method to delete empoyee's record by its Id
         EmployeesTableDetails DeleteEmployeeRecordById(int UserId);
+
+        //Method to Update record
+        EmployeesTableDetails UpdateEmployeeRecord(EmployeesTableDetails employees);
     }
 }
