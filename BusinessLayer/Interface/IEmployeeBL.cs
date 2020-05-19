@@ -16,5 +16,8 @@ namespace BusinessLayer.Interface
 
         //Method to get empoyee data by its Id
         EmployeesTableDetails GetEmployeeRecordById(int UserId);
+
+        //Method to delete empoyee's record by its Id
+        EmployeesTableDetails DeleteEmployeeRecordById(int UserId);
     }
 }

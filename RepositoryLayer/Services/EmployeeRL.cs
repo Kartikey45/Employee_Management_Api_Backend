@@ -144,5 +144,29 @@ namespace RepositoryLayer.Services
             }
             return employee;
         }
+
+        public EmployeesTableDetails DeleteEmployeeRecordById(int UserId)
+        {
+            string Procedure = "DeleteRecordById";
+
+            try
+            {
+                using (SqlConnection Connection = new SqlConnection(ConnectionString))
+                {
+                    SqlCommand sqlCommand = new SqlCommand(Procedure,Connection);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@UserId",UserId);
+
+                    Connection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    Connection.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
     }
 }

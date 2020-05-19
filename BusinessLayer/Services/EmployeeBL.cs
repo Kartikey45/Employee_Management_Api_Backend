@@ -39,5 +39,12 @@ namespace BusinessLayer.Services
             var result = employeeRL.GetEmployeeRecordById(UserId);
             return result;
         }
+
+        //Method to delete empoyee's record by its Id
+        public EmployeesTableDetails DeleteEmployeeRecordById(int UserId)
+        {
+            var result = employeeRL.DeleteEmployeeRecordById(UserId);
+            return result;
+        }
     }
 }
