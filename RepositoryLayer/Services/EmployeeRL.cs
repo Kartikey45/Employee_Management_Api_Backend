@@ -37,6 +37,7 @@ namespace RepositoryLayer.Services
                     sqlCommand.Parameters.AddWithValue("@Designation", employees.Designation);
                     sqlCommand.Parameters.AddWithValue("@Salary", employees.Salary);
                     sqlCommand.Parameters.AddWithValue("@MobileNumber", employees.MobileNumber);
+                    sqlCommand.Parameters.AddWithValue("@Password", employees.Password);
 
                     //connection open 
                     Connection.Open();
@@ -90,6 +91,7 @@ namespace RepositoryLayer.Services
                         employeesTable.Designation = dataReader["UserId"].ToString();
                         employeesTable.Salary = Convert.ToDouble(dataReader["Salary"].ToString());
                         employeesTable.MobileNumber = dataReader["MobileNumber"].ToString();
+                        employeesTable.Password = dataReader["Password"].ToString();
                         employees.Add(employeesTable);
                     }
 
@@ -134,6 +136,7 @@ namespace RepositoryLayer.Services
                         employee.Designation = dataReader["UserId"].ToString();
                         employee.Salary = Convert.ToDouble(dataReader["Salary"].ToString());
                         employee.MobileNumber = dataReader["MobileNumber"].ToString();
+                        employee.Password = dataReader["Password"].ToString();
                     }
                     
                 }
@@ -191,6 +194,7 @@ namespace RepositoryLayer.Services
                     sqlCommand.Parameters.AddWithValue("@Designation", employees.Designation);
                     sqlCommand.Parameters.AddWithValue("@Salary", employees.Salary);
                     sqlCommand.Parameters.AddWithValue("@MobileNumber", employees.MobileNumber);
+                    sqlCommand.Parameters.AddWithValue("@Password", employees.Password);
 
                     //connection open 
                     Connection.Open();
