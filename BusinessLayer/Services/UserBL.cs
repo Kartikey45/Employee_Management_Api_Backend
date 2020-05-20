@@ -24,5 +24,11 @@ namespace BusinessLayer.Services
             var result = userDetail.AddUserDetails(user);
             return result;
         }
+
+        public Response login(UserLogin user)
+        {
+            var result = userDetail.login(user);
+            return result;
+        }
     }
 }

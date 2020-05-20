@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
+using System.Reflection.Metadata.Ecma335;
 
 namespace RepositoryLayer.Services
 {
@@ -57,5 +58,63 @@ namespace RepositoryLayer.Services
             }
             return user;
         }
+
+        //Method for User login
+        public Response login(UserLogin user)
+        {
+            try
+            {
+                string connect = Configuration.GetConnectionString("MyConnection");
+
+                using (SqlConnection Connection = new SqlConnection(connect))
+                {
+                    SqlCommand sqlCommand = new SqlCommand("UserLogin", Connection);
+
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@Email", user.Email);
+                    sqlCommand.Parameters.AddWithValue("@Password", user.Password);
+
+                    //connection open 
+                    Connection.Open();
+
+                    //read data form the database
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                    int status = 0;
+
+                    //While Loop For Reading status result from SqlDataReader.
+                    while (reader.Read())
+                    {
+                        status = reader.GetInt32(0);
+                    }
+
+                    //connection close
+                    Connection.Close();
+
+                    if (status == 1)
+                    {
+                        Response response = new Response();
+                        response.status = "valid";
+                        response.message = "Login Successfull";
+                        response.data = user.Email;
+                        return response;
+                    }
+                    else
+                    {
+                        Response response = new Response();
+                        response.status = "Invalid";
+                        response.message = "Login Failed";
+                        response.data = user.Email;
+                        return response;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
+        
     }
 }

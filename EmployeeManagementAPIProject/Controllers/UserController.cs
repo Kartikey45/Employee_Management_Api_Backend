@@ -29,5 +29,12 @@ namespace EmployeeManagementAPIProject.Controllers
             var result = userBL.AddUserDetails(user);
             return Ok(new { result });
         }
+
+        [HttpPost("login")]
+        public IActionResult login(UserLogin user)
+        {
+            var result = userBL.login(user);
+            return Ok(new { result });
+        }
     }
 }
