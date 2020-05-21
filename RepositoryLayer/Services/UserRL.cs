@@ -21,14 +21,16 @@ namespace RepositoryLayer.Services
         }
 
         //Method to add user details
-        public UserRegistration AddUserDetails(UserRegistration user)
+        public Response AddUserDetails(UserRegistration user)
         {
             try
             {
+              
+
                 string connect = Configuration.GetConnectionString("MyConnection");
                 using (SqlConnection Connection = new SqlConnection(connect))
                 {
-                    SqlCommand sqlCommand = new SqlCommand("InsertDetails", Connection);
+                    SqlCommand sqlCommand = new SqlCommand("UserRegistration", Connection);
 
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                     sqlCommand.Parameters.AddWithValue("@UserId", user.UserId);
@@ -45,18 +47,37 @@ namespace RepositoryLayer.Services
                     //connection open 
                     Connection.Open();
 
+                    //declare variable
+                    int status = 0;
+
                     //Execute query
-                    sqlCommand.ExecuteNonQuery();
+                    status =sqlCommand.ExecuteNonQuery();
 
                     //connection close
                     Connection.Close();
+
+                    //validation
+                    if(status == 1)
+                    {
+                        Response response = new Response();
+                        response.status = "Valid Email";
+                        response.message = "User registered";
+                        return response;
+                    }
+                    else
+                    {
+                        Response response = new Response();
+                        response.status = "Invalid Email";
+                        response.message = "Email already exists";
+                        return response;
+                    }
                 }
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
-            return user;
+            
         }
 
         //Method for User login
@@ -91,12 +112,13 @@ namespace RepositoryLayer.Services
                     //connection close
                     Connection.Close();
 
+                    //validation
                     if (status == 1)
                     {
                         Response response = new Response();
                         response.status = "valid";
                         response.message = "Login Successfull";
-                        response.data = user.Email;
+                        //response.data = user.Email;
                         return response;
                     }
                     else

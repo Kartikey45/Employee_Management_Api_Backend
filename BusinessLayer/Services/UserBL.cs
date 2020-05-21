@@ -19,16 +19,30 @@ namespace BusinessLayer.Services
         }
 
         //Method to add user details
-        public UserRegistration AddUserDetails(UserRegistration user)
+        public Response AddUserDetails(UserRegistration user)
         {
-            var result = userDetail.AddUserDetails(user);
-            return result;
+            try
+            {
+                var result = userDetail.AddUserDetails(user);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Response login(UserLogin user)
         {
-            var result = userDetail.login(user);
-            return result;
+            try
+            {
+                var result = userDetail.login(user);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
