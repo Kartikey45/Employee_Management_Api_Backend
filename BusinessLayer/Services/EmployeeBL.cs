@@ -22,36 +22,70 @@ namespace BusinessLayer.Services
         //Method to add employee's records 
         public EmployeesTableDetails AddEmployeesRecords(EmployeesTableDetails employee)
         {
-            var result = employeeRL.AddEmployeesRecords(employee);
-            return result;
+            try
+            {
+                var result = employeeRL.AddEmployeesRecords(employee);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Method to get employee's records 
         public List<EmployeesTableDetails> GetEmployeesRecords()
         {
-            var result = employeeRL.GetEmployeesRecords();
-            return result;
+            try
+            {
+                var result = employeeRL.GetEmployeesRecords();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Method to get empoyee data by its Id
         public EmployeesTableDetails GetEmployeeRecordById(int UserId)
         {
-            var result = employeeRL.GetEmployeeRecordById(UserId);
-            return result;
+            try
+            {
+                var result = employeeRL.GetEmployeeRecordById(UserId);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Method to delete empoyee's record by its Id
-        public EmployeesTableDetails DeleteEmployeeRecordById(int UserId)
+        public void DeleteEmployeeRecordById(int UserId)
         {
-            var result = employeeRL.DeleteEmployeeRecordById(UserId);
-            return result;
+            try
+            {
+                employeeRL.DeleteEmployeeRecordById(UserId);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Method to Update record
         public EmployeesTableDetails UpdateEmployeeRecord(EmployeesTableDetails employees)
         {
-            var result = employeeRL.UpdateEmployeeRecord(employees);
-            return result;
+            try
+            {
+                var result = employeeRL.UpdateEmployeeRecord(employees);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

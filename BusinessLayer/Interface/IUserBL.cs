@@ -11,7 +11,7 @@ namespace BusinessLayer.Interface
         Response AddUserDetails(UserRegistration user);
 
         //method for user login
-        Response login(UserLogin user);
+        UserRegistration login(UserLogin user);
 
     }
 }

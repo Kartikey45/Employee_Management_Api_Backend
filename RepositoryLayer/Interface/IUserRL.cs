@@ -11,6 +11,6 @@ namespace RepositoryLayer.Interface
         Response AddUserDetails(UserRegistration user);
 
         //Method for user login
-        Response login(UserLogin user);
+        UserRegistration login(UserLogin user);
     }
 }

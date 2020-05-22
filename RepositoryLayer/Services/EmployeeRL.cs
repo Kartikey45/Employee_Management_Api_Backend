@@ -12,7 +12,7 @@ namespace RepositoryLayer.Services
     public class EmployeeRL : IEmployeeRL
     {
         // Initialize variable for connection string of database
-        string ConnectionString = @"Data Source=WINDOWS-SRLO9KL\SQLEXPRESS;Initial Catalog=EmployeeData;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        string ConnectionString = @"Data Source=DESKTOP-IVOPHLI\SQLEXPRESS;Initial Catalog=EmployeeData;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         //Method to add an Employee's data in the table
         public EmployeesTableDetails AddEmployeesRecords(EmployeesTableDetails employees)
@@ -149,7 +149,7 @@ namespace RepositoryLayer.Services
         }
 
         //Method to delete specific employee data by id
-        public EmployeesTableDetails DeleteEmployeeRecordById(int UserId)
+        public void DeleteEmployeeRecordById(int UserId)
         {
             string Procedure = "DeleteRecordById";
 
@@ -170,7 +170,7 @@ namespace RepositoryLayer.Services
             {
                 Console.WriteLine(ex.Message);
             }
-            return null;
+            
         }
 
         //Method to update employee record

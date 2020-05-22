@@ -30,13 +30,19 @@ namespace BusinessLayer.Services
             {
                 throw new Exception(ex.Message);
             }
+            
         }
 
-        public Response login(UserLogin user)
+        //Method for user login
+        public UserRegistration login(UserLogin user)
         {
             try
             {
                 var result = userDetail.login(user);
+                if (result == null)
+                {
+                    throw new Exception();
+                }
                 return result;
             }
             catch(Exception ex)

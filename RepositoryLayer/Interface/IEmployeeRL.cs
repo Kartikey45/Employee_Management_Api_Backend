@@ -20,7 +20,7 @@ namespace RepositoryLayer.Interface
         EmployeesTableDetails GetEmployeeRecordById(int UserId);
 
         //Method to delete empoyee's record by its Id
-        EmployeesTableDetails DeleteEmployeeRecordById(int UserId);
+        void DeleteEmployeeRecordById(int UserId);
 
         //Method to update employee record
         EmployeesTableDetails UpdateEmployeeRecord(EmployeesTableDetails employees);

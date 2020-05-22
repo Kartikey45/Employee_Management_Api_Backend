@@ -26,8 +26,15 @@ namespace EmployeeManagementAPIProject.Controllers
         [Route("")]
         public IActionResult GetEmployeesRecords()
         {
-            var result = employeeBL.GetEmployeesRecords();
-            return Ok(new {result}) ;
+            try
+            {
+                var result = employeeBL.GetEmployeesRecords();
+                return Ok(new { result });
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Get records of employee by its id
@@ -35,8 +42,15 @@ namespace EmployeeManagementAPIProject.Controllers
         [Route("{UserId}")]
         public IActionResult GetEmployeeRecordById(int UserId)
         {
-            var result = employeeBL.GetEmployeeRecordById(UserId);
-            return Ok(new { result});
+            try
+            {
+                var result = employeeBL.GetEmployeeRecordById(UserId);
+                return Ok(new { result });
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Add an employee's record to the database
@@ -44,17 +58,31 @@ namespace EmployeeManagementAPIProject.Controllers
         [Route("")]
         public IActionResult AddEmployeesRecords(EmployeesTableDetails employees)
         {
-            var result = employeeBL.AddEmployeesRecords(employees);
-            return Ok(new { result });
+            try
+            {
+                var result = employeeBL.AddEmployeesRecords(employees);
+                return Ok(new { result });
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Delete an employee's record by its id from database 
         [HttpDelete]
         [Route("{UserId}")]
-        public IActionResult DeleteEmployeeRecordById(int UserId)
+        public string DeleteEmployeeRecordById(int UserId)
         {
-            var result = employeeBL.DeleteEmployeeRecordById(UserId);
-            return Ok(new { result });
+            try
+            {
+                employeeBL.DeleteEmployeeRecordById(UserId);
+                return "Data deleted";
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Update Employee record
@@ -62,8 +90,15 @@ namespace EmployeeManagementAPIProject.Controllers
         [Route("{UserId}")]
         public IActionResult UpdateEmployeeRecord(EmployeesTableDetails employees)
         {
-            var result = employeeBL.UpdateEmployeeRecord(employees);
-            return Ok(new { result });
+            try
+            {
+                var result = employeeBL.UpdateEmployeeRecord(employees);
+                return Ok(new { result });
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
