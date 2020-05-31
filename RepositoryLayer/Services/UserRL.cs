@@ -36,7 +36,7 @@ namespace RepositoryLayer.Services
                     SqlCommand sqlCommand = new SqlCommand("UserRegistration", Connection);
 
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@UserId", user.UserId);
+                    
                     sqlCommand.Parameters.AddWithValue("@FirstName", user.FirstName);
                     sqlCommand.Parameters.AddWithValue("@LastName", user.LastName);
                     sqlCommand.Parameters.AddWithValue("@Gender", user.Gender);
