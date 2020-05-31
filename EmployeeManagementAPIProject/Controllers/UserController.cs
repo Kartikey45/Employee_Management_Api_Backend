@@ -23,9 +23,8 @@ namespace EmployeeManagementAPIProject.Controllers
             userBL = _userBL;
         }
 
-        [HttpPost]
-        [Route("")]
-        public IActionResult UserRegistration(UserRegistration user)
+        [HttpPost("register")]
+        public IActionResult register(UserRegistration user)
         {
             try
             {

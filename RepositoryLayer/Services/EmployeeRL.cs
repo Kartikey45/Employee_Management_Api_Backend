@@ -88,7 +88,7 @@ namespace RepositoryLayer.Services
                         employeesTable.Gender = dataReader["Gender"].ToString();
                         employeesTable.Email = dataReader["Email"].ToString();
                         employeesTable.Address = dataReader["Address"].ToString();
-                        employeesTable.Designation = dataReader["UserId"].ToString();
+                        employeesTable.Designation = dataReader["Designation"].ToString();
                         employeesTable.Salary = Convert.ToDouble(dataReader["Salary"].ToString());
                         employeesTable.MobileNumber = dataReader["MobileNumber"].ToString();
                         employeesTable.Password = dataReader["Password"].ToString();
@@ -133,7 +133,7 @@ namespace RepositoryLayer.Services
                         employee.Gender = dataReader["Gender"].ToString();
                         employee.Email = dataReader["Email"].ToString();
                         employee.Address = dataReader["Address"].ToString();
-                        employee.Designation = dataReader["UserId"].ToString();
+                        employee.Designation = dataReader["Designation"].ToString();
                         employee.Salary = Convert.ToDouble(dataReader["Salary"].ToString());
                         employee.MobileNumber = dataReader["MobileNumber"].ToString();
                         employee.Password = dataReader["Password"].ToString();

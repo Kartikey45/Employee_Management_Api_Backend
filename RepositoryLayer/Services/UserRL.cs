@@ -121,7 +121,7 @@ namespace RepositoryLayer.Services
                         userLogin.Gender = reader["Gender"].ToString();
                         userLogin.Email = reader["Email"].ToString();
                         userLogin.Address = reader["Address"].ToString();
-                        userLogin.Designation = reader["UserId"].ToString();
+                        userLogin.Designation = reader["Designation"].ToString();
                         userLogin.Salary = Convert.ToDouble(reader["Salary"].ToString());
                         userLogin.MobileNumber = reader["MobileNumber"].ToString();
                         userLogin.Password = reader["Password"].ToString();

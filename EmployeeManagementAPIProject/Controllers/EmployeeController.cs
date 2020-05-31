@@ -23,7 +23,7 @@ namespace EmployeeManagementAPIProject.Controllers
 
         //Get all the records of employees from the database 
         [HttpGet]
-        [Route("")]
+        [Route("GetUserDetails")]
         public IActionResult GetEmployeesRecords()
         {
             try
@@ -39,7 +39,7 @@ namespace EmployeeManagementAPIProject.Controllers
 
         //Get records of employee by its id
         [HttpGet]
-        [Route("{UserId}")]
+        [Route("GetUserDetailsById/{userId}")]
         public IActionResult GetEmployeeRecordById(int UserId)
         {
             try
@@ -55,7 +55,7 @@ namespace EmployeeManagementAPIProject.Controllers
 
         //Add an employee's record to the database
         [HttpPost]
-        [Route("")]
+        [Route("InsertUserDetails")]
         public IActionResult AddEmployeesRecords(EmployeesTableDetails employees)
         {
             try
@@ -71,7 +71,7 @@ namespace EmployeeManagementAPIProject.Controllers
 
         //Delete an employee's record by its id from database 
         [HttpDelete]
-        [Route("{UserId}")]
+        [Route("DeleteUserDetails/{UserId}")]
         public string DeleteEmployeeRecordById(int UserId)
         {
             try
@@ -87,7 +87,7 @@ namespace EmployeeManagementAPIProject.Controllers
 
         //Update Employee record
         [HttpPut]
-        [Route("{UserId}")]
+        [Route("UpdateEmployeeDetails")]
         public IActionResult UpdateEmployeeRecord(EmployeesTableDetails employees)
         {
             try
