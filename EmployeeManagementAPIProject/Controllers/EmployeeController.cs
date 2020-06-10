@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Interface;
 using CommonLayer.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementAPIProject.Controllers
@@ -30,7 +31,7 @@ namespace EmployeeManagementAPIProject.Controllers
                 var result = employeeBL.GetEmployeesRecords();
                 return Ok(new { result });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -46,7 +47,7 @@ namespace EmployeeManagementAPIProject.Controllers
                 var result = employeeBL.GetEmployeeRecordById(UserId);
                 return Ok(new { result });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -62,13 +63,14 @@ namespace EmployeeManagementAPIProject.Controllers
                 var result = employeeBL.AddEmployeesRecords(employees);
                 return Ok(new { result });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
         //Delete an employee's record by its id from database 
+        [Authorize (Roles = "Admin")]
         [HttpDelete]
         [Route("DeleteUserDetails/{UserId}")]
         public string DeleteEmployeeRecordById(int UserId)
@@ -85,6 +87,7 @@ namespace EmployeeManagementAPIProject.Controllers
         }
 
         //Update Employee record
+        [Authorize (Roles = "Admin")]
         [HttpPut]
         [Route("UpdateEmployeeDetails")]
         public IActionResult UpdateEmployeeRecord(EmployeesTableDetails employees)

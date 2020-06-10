@@ -12,7 +12,5 @@ namespace RepositoryLayer.Interface
 
         //Method for user login
         UserRegistration login(UserLogin user);
-
-        List<UserRegistration> GetUsersDetail();
     }
 }

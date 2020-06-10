@@ -50,62 +50,6 @@ namespace EmployeeManagementAPIProject.Controllers
             }
         }
 
-        /*
-        [Authorize]
-        [HttpPost("login")]
-        public IActionResult login(UserLogin user)
-        {
-            try
-            {
-                var result = userBL.login(user);
-                if (result.Email == null)
-                {
-                    return Ok(new
-                    { 
-                        status = "failed",
-                        message = "login failed"
-                    }
-                    );
-                }
-                else
-                {
-                    return Ok(new
-                    {
-                        status = "success",
-                        message = "login succesfull",
-                        data = result
-                    }
-                    );
-                }
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        */
-
-        [Authorize]
-        [HttpGet]
-        [Route("")]
-        public ActionResult GetUsersDetail()
-        {
-            try
-            {
-                var result = userBL.GetUsersDetail();
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                return Ok(result);
-
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
         [HttpPost]
         [Route("Login")]
         public IActionResult UserLogin(UserLogin login)
@@ -143,7 +87,7 @@ namespace EmployeeManagementAPIProject.Controllers
                 var signingCreds = new SigningCredentials(symmetricSecuritykey, SecurityAlgorithms.HmacSha256);
 
                 var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Role, type));
+                claims.Add(new Claim(ClaimTypes.Role, responseData.Designation));
                 claims.Add(new Claim("Email", responseData.Email.ToString()));
                 claims.Add(new Claim("Password", responseData.Password.ToString()));
 
