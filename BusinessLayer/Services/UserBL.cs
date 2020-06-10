@@ -50,5 +50,19 @@ namespace BusinessLayer.Services
                 throw new Exception(ex.Message);
             }
         }
+
+
+        public List<UserRegistration> GetUsersDetail()
+        {
+            try
+            {
+                var result = userDetail.GetUsersDetail();
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Reflection.Metadata.Ecma335;
 
+
 namespace RepositoryLayer.Services
 {
     public class UserRL : IUserRL
@@ -136,6 +137,46 @@ namespace RepositoryLayer.Services
                 throw new Exception(ex.Message);
             }
             return userLogin;
-        }   
+        }
+
+        public List<UserRegistration> GetUsersDetail()
+        {
+            List<UserRegistration> userLogin = new List<UserRegistration>();
+            try
+            {
+                string con = Configuration.GetConnectionString("MyConnection");
+                using (SqlConnection connection = new SqlConnection(con))
+                {
+                    SqlCommand sqlCommand = new SqlCommand("ViewAllrecords", connection);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    connection.Open();
+                    SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        UserRegistration user = new UserRegistration();
+                        user.UserId = Convert.ToInt32(dataReader["UserId"].ToString());
+                        user.FirstName = dataReader["FirstName"].ToString();
+                        user.LastName = dataReader["LastName"].ToString();
+                        user.Gender = dataReader["Gender"].ToString();
+                        user.Email = dataReader["Email"].ToString();
+                        user.Address = dataReader["Address"].ToString();
+                        user.Designation = dataReader["Designation"].ToString();
+                        user.Salary = Convert.ToDouble(dataReader["Salary"].ToString());
+                        user.MobileNumber = dataReader["MobileNumber"].ToString();
+                        user.Password = dataReader["Password"].ToString();
+                        userLogin.Add(user);
+                    }
+                    connection.Close();
+                }
+            }
+            // Exception 
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+            // Return User Data
+            return userLogin;
+        }
+
     }
 }

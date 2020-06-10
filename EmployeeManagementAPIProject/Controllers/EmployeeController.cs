@@ -23,7 +23,6 @@ namespace EmployeeManagementAPIProject.Controllers
 
         //Get all the records of employees from the database 
         [HttpGet]
-        [Route("GetUserDetails")]
         public IActionResult GetEmployeesRecords()
         {
             try

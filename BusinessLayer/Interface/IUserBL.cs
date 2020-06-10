@@ -13,5 +13,7 @@ namespace BusinessLayer.Interface
         //method for user login
         UserRegistration login(UserLogin user);
 
+        List<UserRegistration> GetUsersDetail();
+
     }
 }
