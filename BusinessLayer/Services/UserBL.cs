@@ -26,11 +26,11 @@ namespace BusinessLayer.Services
                 var result = userDetail.AddUserDetails(user);
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            
+
         }
 
         //Method for user login
@@ -45,7 +45,7 @@ namespace BusinessLayer.Services
                 }
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

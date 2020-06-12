@@ -27,6 +27,8 @@ namespace EmployeeManagementAPIProject.Controllers
 
         private readonly IConfiguration _config;
 
+        Sender sender = new Sender();
+
         //constructor
         public UserController(IUserBL _userBL, IConfiguration config)
         {
@@ -34,15 +36,28 @@ namespace EmployeeManagementAPIProject.Controllers
             _config = config;
         }
 
+        //Method of User Registration
         [HttpPost("register")]
         public IActionResult register(UserRegistration user)
         {
             try
             {
                 var result = userBL.AddUserDetails(user);
-
-                return Ok(new { result });
-
+                bool success = false;
+                string message;
+                if (result.status == "Invalid Email")
+                {
+                    message = "Registration Failed";
+                    return Ok(new { success, message });
+                }
+                else
+                {
+                    success = true;
+                    message = "Registration Successfully";
+                    string msmqRecordInQueue = "Hello " + Convert.ToString(user.FirstName) + Convert.ToString(user.LastName) + " You \n" + message + "\n Email : " + Convert.ToString(user.Email) + "\n Password : " + Convert.ToString(user.Password);
+                    sender.Message(msmqRecordInQueue);
+                    return Ok(new { success, message});
+                }
             }
             catch (Exception ex)
             {
@@ -50,6 +65,7 @@ namespace EmployeeManagementAPIProject.Controllers
             }
         }
 
+        //Method of User Login 
         [HttpPost]
         [Route("Login")]
         public IActionResult UserLogin(UserLogin login)
@@ -79,6 +95,7 @@ namespace EmployeeManagementAPIProject.Controllers
             }
         }
 
+        //Token creation
         private string CreateToken(UserRegistration responseData, string type)
         {
             try

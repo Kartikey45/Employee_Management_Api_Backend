@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Reflection.Metadata.Ecma335;
-
+using Newtonsoft.Json;
 
 namespace RepositoryLayer.Services
 {
@@ -22,8 +22,10 @@ namespace RepositoryLayer.Services
         }
 
         //Method to add user details
-        public Response AddUserDetails( UserRegistration user)
+        public Response AddUserDetails(UserRegistration user)
         {
+            Response response = new Response();
+
             try
             {
                 //Connection string declared
@@ -37,7 +39,7 @@ namespace RepositoryLayer.Services
                     SqlCommand sqlCommand = new SqlCommand("UserRegistration", Connection);
 
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-                    
+
                     sqlCommand.Parameters.AddWithValue("@FirstName", user.FirstName);
                     sqlCommand.Parameters.AddWithValue("@LastName", user.LastName);
                     sqlCommand.Parameters.AddWithValue("@Gender", user.Gender);
@@ -56,32 +58,49 @@ namespace RepositoryLayer.Services
 
                     //Execute query
                     status = sqlCommand.ExecuteNonQuery();
-                    
+
+                    try
+                    {
+                        SqlDataReader dataReader = sqlCommand.ExecuteReader();
+
+                        while (dataReader.Read())
+                        {
+                            response.UserId = Convert.ToInt32(dataReader["UserId"].ToString());
+                            response.FirstName = dataReader["FirstName"].ToString();
+                            response.LastName = dataReader["LastName"].ToString();
+                            response.Gender = dataReader["Gender"].ToString();
+                            response.Email = dataReader["Email"].ToString();
+                            response.Address = dataReader["Address"].ToString();
+                            response.Designation = dataReader["Designation"].ToString();
+                            response.Salary = Convert.ToDouble(dataReader["Salary"].ToString());
+                            response.MobileNumber = dataReader["MobileNumber"].ToString();
+                            response.Password = dataReader["Password"].ToString();
+                        }
+                    }
+                    catch
+                    {
+                        Response myReturnData = new Response() { message = "Error" };
+                        string json = JsonConvert.SerializeObject(myReturnData);
+                    }
 
                     //connection close
                     Connection.Close();
-                    
-                    
+
                     //validation
-                    if(status == 1)
+                    if (status == 1)
                     {
-                        Response response = new Response();
                         response.status = "Valid Email";
-                        response.message = "User registered";
                         response.data = "Entered";
-                        return response;
                     }
                     else
                     {
-                        Response response = new Response();
                         response.status = "Invalid Email";
-                        response.message = "Email already exists";
                         response.data = "Not entered";
-                        return response;
                     }
                 }
+                return response;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -132,7 +151,7 @@ namespace RepositoryLayer.Services
                     Connection.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
