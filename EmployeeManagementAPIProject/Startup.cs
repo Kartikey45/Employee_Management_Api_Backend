@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer.Interface;
 using RepositoryLayer.Services;
 using EmployeeManagementAPIProject.Controllers;
+using Microsoft.OpenApi.Models;
 
 namespace EmployeeManagementAPIProject
 {
@@ -52,6 +53,42 @@ namespace EmployeeManagementAPIProject
 
             string securityKey = "123465 this is user";
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Employee Management",
+                        Description = "Swagger Api",
+                        Version = "v1"
+                    });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+               {
+                   {
+                         new OpenApiSecurityScheme
+                           {
+                               Reference = new OpenApiReference
+                               {
+                                   Type = ReferenceType.SecurityScheme,
+                                   Id = "Bearer"
+                               }
+                           },
+                           new string[] {}
+                   }
+               });
+            });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
@@ -88,6 +125,13 @@ namespace EmployeeManagementAPIProject
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee Management");
+                options.RoutePrefix = "";
+            });
         }
     }
 }

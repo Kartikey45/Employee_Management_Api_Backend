@@ -29,50 +29,62 @@ namespace EmployeeManagementAPIProject.Controllers
             try
             {
                 var result = employeeBL.GetEmployeesRecords();
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
                 return Ok(new { result });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                return BadRequest();
             }
         }
 
         //Get records of employee by its id
         [HttpGet]
-        [Route("GetUserDetailsById/{userId}")]
+        [Route("{UserId}")]
         public IActionResult GetEmployeeRecordById(int UserId)
         {
             try
             {
+                if (UserId != employeeBL.GetEmployeeRecordById(UserId).UserId)
+                {
+                    return NotFound();
+                }
+                
                 var result = employeeBL.GetEmployeeRecordById(UserId);
+
                 return Ok(new { result });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                return BadRequest(UserId);
             }
         }
 
         //Add an employee's record to the database
         [HttpPost]
-        [Route("InsertUserDetails")]
         public IActionResult AddEmployeesRecords(EmployeesTableDetails employees)
         {
             try
             {
                 var result = employeeBL.AddEmployeesRecords(employees);
+
                 return Ok(new { result });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                return BadRequest();
             }
         }
 
         //Delete an employee's record by its id from database 
         [Authorize (Roles = "Admin")]
         [HttpDelete]
-        [Route("DeleteUserDetails/{UserId}")]
+        [Route("{UserId}")]
         public string DeleteEmployeeRecordById(int UserId)
         {
             try
@@ -80,16 +92,15 @@ namespace EmployeeManagementAPIProject.Controllers
                 employeeBL.DeleteEmployeeRecordById(UserId);
                 return "Data deleted";
             }
-            catch(Exception ex)
+            catch(Exception exception)
             {
-                throw new Exception(ex.Message);
+                return exception.Message;
             }
         }
 
         //Update Employee record
         [Authorize (Roles = "Admin")]
         [HttpPut]
-        [Route("UpdateEmployeeDetails")]
         public IActionResult UpdateEmployeeRecord(EmployeesTableDetails employees)
         {
             try
@@ -97,9 +108,9 @@ namespace EmployeeManagementAPIProject.Controllers
                 var result = employeeBL.UpdateEmployeeRecord(employees);
                 return Ok(new { result });
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw new Exception(ex.Message);
+                return BadRequest();
             }
         }
     }

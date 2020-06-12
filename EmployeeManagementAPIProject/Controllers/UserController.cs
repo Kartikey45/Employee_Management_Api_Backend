@@ -59,9 +59,9 @@ namespace EmployeeManagementAPIProject.Controllers
                     return Ok(new { success, message});
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception(ex.Message);
+                return BadRequest();
             }
         }
 
@@ -86,12 +86,12 @@ namespace EmployeeManagementAPIProject.Controllers
                     success = true;
                     message = "Login Successfully";
                     jsonToken = CreateToken(data, "Login");
-                    return Ok(new { success, message, data, jsonToken });
+                    return Ok(new { success, message, jsonToken });
                 }
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                return BadRequest(new { exception.Message });
+                return BadRequest();
             }
         }
 
@@ -115,9 +115,9 @@ namespace EmployeeManagementAPIProject.Controllers
                     signingCredentials: signingCreds);
                 return new JwtSecurityTokenHandler().WriteToken(token);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw new Exception(ex.Message);
+                throw new Exception(exception.Message);
             }
         }
     }
