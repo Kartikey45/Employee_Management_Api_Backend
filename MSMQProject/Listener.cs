@@ -9,6 +9,8 @@ namespace MSMQProject
     {
         public static void Main(string[] args)
         {
+            SMTP smtp = new SMTP();
+
             Console.WriteLine("Message");
 
             MessageQueue MyQueue;
@@ -16,6 +18,8 @@ namespace MSMQProject
 
             Message MyMessage = MyQueue.Receive();
             MyMessage.Formatter = new BinaryMessageFormatter();
+
+            smtp.SendMail(MyMessage.Body.ToString());
 
             Console.WriteLine(MyMessage.Body.ToString());
             Console.ReadLine();
