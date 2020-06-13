@@ -35,7 +35,6 @@ namespace EmployeeManagementAPIProject
         public void ConfigureServices(IServiceCollection services)
         {
 
-            ////////////////////////////////////////////
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -43,7 +42,6 @@ namespace EmployeeManagementAPIProject
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-            ////////////////////////////////////////////
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IEmployeeBL, EmployeeBL>();
@@ -51,9 +49,11 @@ namespace EmployeeManagementAPIProject
             services.AddTransient<IUserRL, UserRL>();
             services.AddTransient<IUserBL, UserBL>();
 
+            //Key Variables declared for JWT Token
             string securityKey = "123465 this is user";
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));
 
+            //Swagger implementation
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
@@ -75,21 +75,23 @@ namespace EmployeeManagementAPIProject
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
-               {
+                {
                    {
                          new OpenApiSecurityScheme
-                           {
+                         {
                                Reference = new OpenApiReference
                                {
                                    Type = ReferenceType.SecurityScheme,
                                    Id = "Bearer"
                                }
-                           },
-                           new string[] {}
+                         },
+                         new string[] {}
                    }
-               });
+                });
             });
 
+
+            // Code for JWT Token implementation
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
                {
@@ -100,7 +102,7 @@ namespace EmployeeManagementAPIProject
                        ValidIssuer = Configuration["JWT:Issuer"],
                        ValidAudience = Configuration["JWT:Audience"]
                    };
-                });
+               });
 
         }
 
@@ -117,15 +119,15 @@ namespace EmployeeManagementAPIProject
             }
 
 
-            ////////////////////////////
             app.UseCors("CorsPolicy");
-            ////////////////////////////
-
+            
+            //Authentication 
             app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseMvc();
 
+            //Swagger UI 
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {

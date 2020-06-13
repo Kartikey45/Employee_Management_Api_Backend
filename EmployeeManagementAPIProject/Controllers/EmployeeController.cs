@@ -85,16 +85,16 @@ namespace EmployeeManagementAPIProject.Controllers
         [Authorize (Roles = "Admin")]
         [HttpDelete]
         [Route("{UserId}")]
-        public string DeleteEmployeeRecordById(int UserId)
+        public IActionResult DeleteEmployeeRecordById(int UserId)
         {
             try
             {
                 employeeBL.DeleteEmployeeRecordById(UserId);
-                return "Data deleted";
+                return Ok("Data deleted");
             }
-            catch(Exception exception)
+            catch(Exception)
             {
-                return exception.Message;
+                return BadRequest();
             }
         }
 

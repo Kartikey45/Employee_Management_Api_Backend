@@ -53,8 +53,8 @@ namespace EmployeeManagementAPIProject.Controllers
                 else
                 {
                     success = true;
-                    message = "Registration Successfully";
-                    string msmqRecordInQueue = "Hello " + Convert.ToString(user.FirstName) + Convert.ToString(user.LastName) + " You \n" + message + "\n Email : " + Convert.ToString(user.Email) + "\n Password : " + Convert.ToString(user.Password);
+                    message = "Registration Successfull";
+                    string msmqRecordInQueue =  Convert.ToString(user.FirstName) + Convert.ToString(user.LastName) + "\n" + message + "\n Email : " + Convert.ToString(user.Email) + "\n Password : " + Convert.ToString(user.Password);
                     sender.Message(msmqRecordInQueue);
                     return Ok(new { success, message});
                 }
@@ -85,7 +85,10 @@ namespace EmployeeManagementAPIProject.Controllers
                 {
                     success = true;
                     message = "Login Successfully";
+
+                    //Token generated
                     jsonToken = CreateToken(data, "Login");
+
                     return Ok(new { success, message, jsonToken });
                 }
             }

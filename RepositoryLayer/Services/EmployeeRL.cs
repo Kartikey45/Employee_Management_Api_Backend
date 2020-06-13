@@ -170,7 +170,6 @@ namespace RepositoryLayer.Services
             {
                 Console.WriteLine(ex.Message);
             }
-            
         }
 
         //Method to update employee record
